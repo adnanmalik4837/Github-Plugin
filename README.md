@@ -7,7 +7,7 @@ WordPress plugin that fetch GitHub repository and commits.
 # Installation 
 
 1. First of all download project from github.
-2. Place downloaded zip file in any directory that you want and unwarp once from zip.
+2. Place downloaded zip file in any directory that you want.
 3. Open wordpress admin panel.
 4. Go into plugins in wordpress.
 5. In plugins click on "Add New" button.
