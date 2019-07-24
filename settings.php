@@ -4,450 +4,6 @@
 function github_settings_page_html(){
 
 
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_namee = $wpdb->prefix . "gh_temp_table";
-
-
-
- $check = $wpdb->get_var( "SELECT COUNT(*) FROM $table_namee");  
-if($check>0)
-{
-?>
-<div id="lo">  <center>
-<form method="post" action="">
-   <div align="center"><input type="submit" name="logout" value="Sign Out" style="background:#ff0000;font-size:20px;color:white"></div></from>  </center></div>
-
-
-    <?php
-
-    if(isset($_POST['logout'])){
-?><script>
-
-  var x = document.getElementById("lo");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-
-</script><?php
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_na = $wpdb->prefix . "gh_temp_table";
-$delete = $wpdb->query("TRUNCATE TABLE $table_na");
-?>
-
-<div  id="myDIV">
-<h1 align="center">Sign In Here</h1>
-        <center>
-            <form method="post" action="">
-                User Name :<br><input type="text" name="value1"><br>
-                User Pass :<br><input type="password" name="value2"><br>
-             <br><input type="hidden" name="value"><br>
-                <div align="center">
-                    <input type="submit" name="submit" value="Sign In" style="background:#0099ff;font-size:20px;color:white">
-                    <input type="submit" name="signup" value="Sign Up" style="background:#00cc99;font-size:20px;color:white">
-                </div>
-            </form>
-        </center></div>
-
-
-<?php
-}
-
-    if(isset($_POST['submit'])){
-        $value1=$_POST['value1'];
-        $value2=$_POST['value2'];
-      
-       
- if($value1=='') {
-            echo "<script>alert('Please Enter User Name')</script>";
-            exit();
-        }
-
-        if($value2=='') {
-            echo "<script>alert('Please Enter Password')</script>";
-            exit();
-        }
-
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_nam = $wpdb->prefix . "github_signup";
-
- $checks = $wpdb->get_var( "SELECT COUNT(*)  FROM $table_nam where user_name= '$value1' AND user_pass='$value2' ");  
- if($checks>0)
-{
-
-?>
-<script>
-
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-
-</script>
-
-
-    <?php
-
-
-echo '<center><h1 style="color:blue;">You are Already Login! You Can Aceess Repostries And Commits Pages</h1>';
-
-
-
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_namee = $wpdb->prefix . "gh_temp_table";
-
-
-
- $check = $wpdb->get_var( "SELECT COUNT(*) FROM $table_namee where user_name= '$value1' AND user_pass='$value2'");  
-if($check>0)
-{
-echo 'Your Are Already SignIn';
-
-}
-else
-{
-$wpdb->insert( 
-  ''.$table_namee.'', 
-  array( 
-    'user_name' => $value1,  
-    'user_pass' =>  $value2
-  ), 
-  array( '%s',
-                '%s'
-  ) 
-);
-
-}
-
-
-
-
-
-}
-else
-{
-echo 'You Not Login Sucessfully,Pass Or Username Incorrect';
-}
-
-    }
- if(isset($_POST['signup'])){
-
-?>
-<script>
-
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-
-</script>
-<h1 align="center">Sign Up Here</h1>
-        <center>
-            <form method="post" action="">
-               Enter User Name :<br><input type="text" name="value1"><br>
-               Enter Email :<br><input type="text" name="value2"><br>
-               Enter User Password :<br><input type="password" name="value"><br>
-                <div align="center">
-                    <input type="submit" name="submit" value="Sign In" style="background:#0099ff;font-size:20px;color:white">
-                    <input type="submit" name="signup" value="Submit" style="background:#ffcc00;font-size:20px;color:black">
-                </div>
-            </form>
-<?php
-  $value1=$_POST['value1'];
-        $value2=$_POST['value2'];
-    $value=$_POST['value'];
-     
-    if($value1=='') {
-            echo "<script>alert('Please Enter User Name')</script>";
-            exit();
-        }
-
-   if($value2=='') {
-            echo "<script>alert('Please Enter Email')</script>";
-            exit();
-        }
-   if($value=='') {
-            echo "<script>alert('Please Enter Password')</script>";
-            exit();
-        }
-    
-
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_name = $wpdb->prefix . "github_signup";
-
-
-
- $check = $wpdb->get_var( "SELECT COUNT(*) FROM $table_name where user_name= '$value1' OR user_email='$value2' ");  
-if($check>0)
-{
-echo 'Credentials Already Exists, You Are Not Registered';
-}
-else
-{
-$wpdb->insert( 
-  ''.$table_name.'', 
-  array( 
-    'user_name' => $value1, 
-                'user_email' => $value2, 
-    'user_pass' =>  $value
-  ), 
-  array( '%s',
-               '%s', 
-                '%s'
-     
-  ) 
-);
-if($wpdb->insert_id)
-{
-echo 'You Are Registered Successfully ';
-}
-else
-{
-echo 'You Are Not Registered Successfully';
-}}?>
-
-<?php
-      
-
-}
-
-
-
-
-
-//echo '<center><h1 style="color:blue;">You are Login Sucessfully! Please Refresh Once For Loading Data</h1>';
-
-}
-else
-{
-
-?>
-
-<div  id="myDIV">
-<h1 align="center">Sign In Here</h1>
-        <center>
-            <form method="post" action="">
-                User Name :<br><input type="text" name="value1"><br>
-                User Pass :<br><input type="password" name="value2"><br>
-             <br><input type="hidden" name="value"><br>
-                <div align="center">
-                    <input type="submit" name="submit" value="Sign In" style="background:#0099ff;font-size:20px;color:white">
-                    <input type="submit" name="signup" value="Sign Up" style="background:#00cc99;font-size:20px;color:white">
-                </div>
-            </form>
-        </center></div>
-
-
-<?php
-}
-
-    if(isset($_POST['submit'])){
-        $value1=$_POST['value1'];
-        $value2=$_POST['value2'];
-      
-       
- if($value1=='') {
-            echo "<script>alert('Please Enter User Name')</script>";
-            exit();
-        }
-
-        if($value2=='') {
-            echo "<script>alert('Please Enter Password')</script>";
-            exit();
-        }
-
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_nam = $wpdb->prefix . "github_signup";
-
- $checks = $wpdb->get_var( "SELECT COUNT(*)  FROM $table_nam where user_name= '$value1' AND user_pass='$value2' ");  
- if($checks>0)
-{
-
-?>
-<script>
-
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-
-</script>
-
-
-    
-<div id="lo">  <center>
-<form method="post" action="">
-   <div align="center"><input type="submit" name="logout" value="Sign Out" style="background:#ff0000;font-size:20px;color:white"></div></from>  </center></div>
-
-
-    <?php
-
-    if(isset($_POST['logout'])){
-?><script>
-
-  var x = document.getElementById("lo");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-
-</script><?php
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_na = $wpdb->prefix . "gh_temp_table";
-$delete = $wpdb->query("TRUNCATE TABLE $table_na");
-}
-
-echo '<center><h1 style="color:blue;">You are Login Sucessfully! Now You Can Access Repostries And Commits</h1>';
-
-
-
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_namee = $wpdb->prefix . "gh_temp_table";
-
-
-
- $check = $wpdb->get_var( "SELECT COUNT(*) FROM $table_namee where user_name= '$value1' AND user_pass='$value2'");  
-if($check>0)
-{
-echo 'Your Are Already SignIn';
-
-}
-else
-{
-$wpdb->insert( 
-  ''.$table_namee.'', 
-  array( 
-    'user_name' => $value1,  
-    'user_pass' =>  $value2
-  ), 
-  array( '%s',
-                '%s'
-  ) 
-);
-
-}
-
-
-
-
-
-}
-else
-{
-echo 'You Not Login Sucessfully,Pass Or Username Incorrect';
-}
-
-    }
- if(isset($_POST['signup'])){
-
-?>
-<script>
-
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-
-</script>
-<h1 align="center">Sign Up Here</h1>
-        <center>
-            <form method="post" action="">
-               Enter User Name :<br><input type="text" name="value1"><br>
-               Enter Email :<br><input type="text" name="value2"><br>
-               Enter User Password :<br><input type="password" name="value"><br>
-                <div align="center">
-                    <input type="submit" name="submit" value="Sign In" style="background:#0099ff;font-size:20px;color:white">
-                    <input type="submit" name="signup" value="Submit" style="background:#ffcc00;font-size:20px;color:black">
-                </div>
-            </form>
-<?php
-  $value1=$_POST['value1'];
-        $value2=$_POST['value2'];
-    $value=$_POST['value'];
-     
-    if($value1=='') {
-            echo "<script>alert('Please Enter User Name')</script>";
-            exit();
-        }
-
-   if($value2=='') {
-            echo "<script>alert('Please Enter Email')</script>";
-            exit();
-        }
-   if($value=='') {
-            echo "<script>alert('Please Enter Password')</script>";
-            exit();
-        }
-    
-
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_name = $wpdb->prefix . "github_signup";
-
-
-
- $check = $wpdb->get_var( "SELECT COUNT(*) FROM $table_name where user_name= '$value1' OR user_email='$value2' ");  
-if($check>0)
-{
-echo 'Credentials Already Exists, You Are Not Registered';
-}
-else
-{
-$wpdb->insert( 
-  ''.$table_name.'', 
-  array( 
-    'user_name' => $value1, 
-                'user_email' => $value2, 
-    'user_pass' =>  $value
-  ), 
-  array( '%s',
-               '%s', 
-                '%s'
-     
-  ) 
-);
-if($wpdb->insert_id)
-{
-echo 'You Are Registered Successfully ';
-}
-else
-{
-echo 'You Are Not Registered Successfully';
-}}?>
-
-<?php
-      
-
-
-}
-
 
 
 }
@@ -464,284 +20,102 @@ require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 $table_namee = $wpdb->prefix . "gh_temp_table";
 
 
-
  $check = $wpdb->get_var( "SELECT COUNT(*) FROM $table_namee");  
 if($check>0)
 {
 
-?>
-<div id="RandC"><h1>GITHUB REPOSITORIES PERVIEW PAGE</h1>
- <button id='btnRepos' style="#ffffff:blue; border-style: dotted;   font-weight: bold; font-size: 20px; background-color:#47d147;">REPOSITORIES</button>
- <div id='divResult' ></div>
-<form method="post" action="">
-   <button type="submit"  name="logout" value="Sign Out" style="#ffffff:blue; border-style: dotted;   font-weight: bold; font-size: 20px; background-color:#ff5c33;">SIGN OUT</button></div></from> </div>
-
-   
-  <script>
-    	const btnRepos=document.getElementById("btnRepos")
-    	
- 
-    	const divResult=document.getElementById("divResult")
-    	btnRepos.addEventListener("click",getRepos)
-    	
-
-
-         
-    	async function getRepos()
-    	{
-     const url="http://api.github.com/search/repositories?q=stars:>1000"
-      const reponse=await fetch(url)
-      const result=await reponse.json()
-
-      result.items.forEach(i=>{
-      	const anchor=document.createElement("a")
-     anchor.href=i.html_url;
-     anchor.textContent=i.full_name; 	
-      	divResult.appendChild(anchor)
-	divResult.appendChild(document.createElement("br"))
-      })
-
-
-    	}
-    		
-    	function clear()
-    	{
-    		while(divResult.firstChild)
-    			divResult.removeChild(divResult.firstChild)
-    	}
-    </script>
-
-    <?php
-
-    if(isset($_POST['logout'])){
-?><script>
-
-  var x = document.getElementById("RandC");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-
-</script><?php
 global $wpdb;
 require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
-$table_na = $wpdb->prefix . "gh_temp_table";
-$delete = $wpdb->query("TRUNCATE TABLE $table_na");
+$table_namee = $wpdb->prefix . "gh_temp_table";
 
 
-?>
-
-<div  id="myDIV">
-<h1 align="center">Sign In Here</h1>
-        <center>
-            <form method="post" action="">
-                User Name :<br><input type="text" name="value1"><br>
-                User Pass :<br><input type="password" name="value2"><br>
-             <br><input type="hidden" name="value"><br>
-                <div align="center">
-                    <input type="submit" name="submit" value="Sign In" style="background:#0099ff;font-size:20px;color:white">
-                    <input type="submit" name="signup" value="Sign Up" style="background:#00cc99;font-size:20px;color:white">
-                </div>
-            </form>
-        </center></div>
-
-
-<?php
+ $result = $wpdb->get_results( "SELECT * FROM $table_namee");
+foreach ( $result as $page )
+{
+  // echo $page->user_name.'<br/>';
+   //echo $page->user_pass.'<br/>';
 }
 
-    if(isset($_POST['submit'])){
-        $value1=$_POST['value1'];
-        $value2=$_POST['value2'];
-      
-       
- if($value1=='') {
-            echo "<script>alert('Please Enter User Name')</script>";
-            exit();
-        }
-
-        if($value2=='') {
-            echo "<script>alert('Please Enter Password')</script>";
-            exit();
-        }
-
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_nam = $wpdb->prefix . "github_signup";
-
- $checks = $wpdb->get_var( "SELECT COUNT(*)  FROM $table_nam where user_name= '$value1' AND user_pass='$value2' ");  
- if($checks>0)
-{
-
-?>
-<script>
-
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-
-</script>
-
-
-
-    <?php
-
-   /* if(isset($_POST['logout'])){
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_na = $wpdb->prefix . "gh_temp_table";
-$delete = $wpdb->query("TRUNCATE TABLE $table_na");
-
-//echo 'logout';
-
-}*/
-
-
-?>
-<div id="RandC"><h1>GitHub Commits</h1>
- <button id='btnRepos'>Repositories</button>
-    <button id='btnCommits'>Commits</button>
- <div id='divResult' ></div>
-<form method="post" action="">
-   <button type="submit"  name="logout" value="Sign Out" >SignOut</button></div></from> 
-
-   
-</div>
-
-    <?php
-
-    if(isset($_POST['logout'])){
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_na = $wpdb->prefix . "gh_temp_table";
-$delete = $wpdb->query("TRUNCATE TABLE $table_na");
-
-//echo 'logout';
-
-}?>
+   ?>
+  <div id="log">  <h1>GitHub Repositories</h1>
+  <!--  <form method="post" action="">
+                User Name :<br><input type="text" id="value1"><br>
+                User Pass :<br><input type="password" id="value2"><br>
+            
+        </form> -->
+    <button id='btnRepos'>Repos</button>
+     <form method="post" action="">
+    <input type="submit" name="logout" value="Sign Out" > </form></div> 
+           
+    <div id='divResult' ></div>
 
     <script>
+
     	const btnRepos=document.getElementById("btnRepos")
-    	const btnCommits=document.getElementById("btnCommits")
- 
+    	//const btnCommits=document.getElementById("btnCommits")
     	const divResult=document.getElementById("divResult")
     	btnRepos.addEventListener("click",getRepos)
-    	btnCommits.addEventListener("click",getCommits)
-
-
-         
+    	//logout.addEventListener("click",getlogout)
     	async function getRepos()
-    	{
-     const url="http://api.github.com/search/repositories?q=stars:>1000"
-      const reponse=await fetch(url)
-      const result=await reponse.json()
-
-      result.items.forEach(i=>{
-      	const anchor=document.createElement("a")
-     anchor.href=i.html_url;
-     anchor.textContent=i.full_name; 	
-      	divResult.appendChild(anchor)
-	divResult.appendChild(document.createElement("br"))
-      })
-
-
-    	}
-    		async function getCommits()
     	{clear();
-     const url="http://api.github.com/search/commits?q=repo:freecodecamp/freecodecamp author-date:2019-03-01..2019-03-31"
-     const headers={
-     	"Accept" : "application/vnd.github.cloak-preview"
+        var u_name = "<?php echo $page->user_name; ?>";
+    		var u_pass = "<?php echo $page->user_pass; ?>";
+     
+    		  const username=u_name; 
+ const password= u_pass; 
+if(username=='') {
+         alert('Please Enter User Name');
+           
+        }
+        	if(password=='') {
+         alert('Please Enter Password');
+           
+        }
+    		    const headers={
+     	"Authorization" : `Basic ${btoa(`${username}:${password}`)}`
      }
-      const reponse=await fetch(url,{
-        "method":"GET",
-      	"headers":headers})
+
+        const url="https://api.github.com/user/repos"
+ 
+     const reponse=await fetch(url,{
+        "method": "GET",
+      	"headers": headers
+      })
       const result=await reponse.json()
 
-      result.items.forEach(i=>{
-      	const auhorname=document.createElement("auhorname")
-      	const img=document.createElement("img")
-      	auhorname.textContent=i.author.login;
-      	img.src=i.author.avatar_url;
-      	img.style.width="32px"
-      	img.style.height="32px"
+      result.forEach(i=>{
       	const anchor=document.createElement("a")
-     anchor.href=i.html_url;
-     anchor.textContent=i.commit.message; 
-     divResult.appendChild(document.createElement("br"))	
-     divResult.appendChild(img)
-     divResult.appendChild(document.createElement("br"))
-     divResult.appendChild(auhorname)
-     divResult.appendChild(document.createElement("br"))
-      	divResult.appendChild(anchor)
-	divResult.appendChild(document.createElement("br"))
-      })
-         
+      anchor.href=i.html_url;
+        //anchor.href=i.commits_url; 
+    anchor.textContent=i.full_name;
+    
+	divResult.appendChild(anchor)
+	 divResult.appendChild(document.createElement("br"))
+       })
+
 
     	}
+    	
+   
     	function clear()
     	{
     		while(divResult.firstChild)
     			divResult.removeChild(divResult.firstChild)
     	}
-    </script>
-<?php
+    </script><?php
 
-
-
-//echo '<center><h1 style="color:blue;">You are Login Sucessfully! Please Refresh Once For Loading Data</h1>';
-
+   if(isset($_POST['logout'])){
 global $wpdb;
 require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
-$table_namee = $wpdb->prefix . "gh_temp_table";
+$table_na = $wpdb->prefix . "gh_temp_table";
+$delete = $wpdb->query("TRUNCATE TABLE $table_na");
 
-
-
- $check = $wpdb->get_var( "SELECT COUNT(*) FROM $table_namee where user_name= '$value1' AND user_pass='$value2'");  
-if($check>0)
-{
-echo 'Your Are Already SignIn';
-
-}
-else
-{
-$wpdb->insert( 
-  ''.$table_namee.'', 
-  array( 
-    'user_name' => $value1,  
-    'user_pass' =>  $value2
-  ), 
-  array( '%s',
-                '%s'
-  ) 
-);
-
-}
-
-
-
-
-
-}
-else
-{
-echo 'You Not Login Sucessfully,Pass Or Username Incorrect';
-}
-
-    }
- if(isset($_POST['signup'])){
 
 ?>
 <script>
-
-  var x = document.getElementById("myDIV");
+   var x = document.getElementById("log");
   if (x.style.display === "none") {
     x.style.display = "block";
   } else {
@@ -749,245 +123,39 @@ echo 'You Not Login Sucessfully,Pass Or Username Incorrect';
   }
 
 </script>
-<h1 align="center">Sign Up Here</h1>
-        <center>
-            <form method="post" action="">
-               Enter User Name :<br><input type="text" name="value1"><br>
-               Enter Email :<br><input type="text" name="value2"><br>
-               Enter User Password :<br><input type="password" name="value"><br>
-                <div align="center">
-                    <input type="submit" name="submit" value="Sign In" style="background:#0099ff;font-size:20px;color:white">
-                    <input type="submit" name="signup" value="Submit" style="background:#ffcc00;font-size:20px;color:black">
-                </div>
-            </form>
-<?php
-  $value1=$_POST['value1'];
-        $value2=$_POST['value2'];
-    $value=$_POST['value'];
-     
-    if($value1=='') {
-            echo "<script>alert('Please Enter User Name')</script>";
-            exit();
-        }
-
-   if($value2=='') {
-            echo "<script>alert('Please Enter Email')</script>";
-            exit();
-        }
-   if($value=='') {
-            echo "<script>alert('Please Enter Password')</script>";
-            exit();
-        }
+<h1>GitHub Repositories</h1>
+     <form method="post" action="">
+                User Name :<br><input type="text"  name="value1"><br>
+                User Pass :<br><input type="password" name="value2"><br>
+              
+   <button id='login'>login</button>   </form>
     
 
+    <script>
+ 
+var x = document.getElementById("repos");
+      const loginn=document.getElementById("login")
+      loginn.addEventListener("click",getlogin)
+       function getlogin()
+      {
+      <?php
 global $wpdb;
 require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
-$table_name = $wpdb->prefix . "github_signup";
-
-
-
- $check = $wpdb->get_var( "SELECT COUNT(*) FROM $table_name where user_name= '$value1' OR user_email='$value2' ");  
-if($check>0)
-{
-echo 'Credentials Already Exists, You Are Not Registered';
-}
-else
-{
-$wpdb->insert( 
-  ''.$table_name.'', 
-  array( 
-    'user_name' => $value1, 
-                'user_email' => $value2, 
-    'user_pass' =>  $value
-  ), 
-  array( '%s',
-               '%s', 
-                '%s'
-     
-  ) 
-);
-if($wpdb->insert_id)
-{
-echo 'You Are Registered Successfully ';
-}
-else
-{
-echo 'You Are Not Registered Successfully';
-}}?>
-
-<?php
-      
-}?>
-
- 
-<?php
-
-
-}
-else
-{
-
-?>
-
-<div  id="myDIV">
-<h1 align="center">Sign In Here</h1>
-        <center>
-            <form method="post" action="">
-                User Name :<br><input type="text" name="value1"><br>
-                User Pass :<br><input type="password" name="value2"><br>
-             <br><input type="hidden" name="value"><br>
-                <div align="center">
-                    <input type="submit" name="submit" value="Sign In" style="background:#0099ff;font-size:20px;color:white">
-                    <input type="submit" name="signup" value="Sign Up" style="background:#00cc99;font-size:20px;color:white">
-                </div>
-            </form>
-        </center></div>
-
-
-<?php
-}
-
-    if(isset($_POST['submit'])){
-        $value1=$_POST['value1'];
+$table_name = $wpdb->prefix . "gh_temp_table";
+  $value1=$_POST['value1'];
         $value2=$_POST['value2'];
-      
-       
  if($value1=='') {
             echo "<script>alert('Please Enter User Name')</script>";
             exit();
         }
 
-        if($value2=='') {
-            echo "<script>alert('Please Enter Password')</script>";
+   if($value2=='') {
+            echo "<script>alert('Please Enter Email')</script>";
             exit();
         }
-
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_nam = $wpdb->prefix . "github_signup";
-
- $checks = $wpdb->get_var( "SELECT COUNT(*)  FROM $table_nam where user_name= '$value1' AND user_pass='$value2' ");  
- if($checks>0)
-{
-
-?>
-<script>
-
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-
-</script>
-
-
-
-    <?php
-
-   /* if(isset($_POST['logout'])){
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_na = $wpdb->prefix . "gh_temp_table";
-$delete = $wpdb->query("TRUNCATE TABLE $table_na");
-
-//echo 'logout';
-
-}*/
-
-
-?>
-<div id="RandC"><h1>GITHUB REPOSITORIES PERVIEW PAGE</h1>
- <button id='btnRepos' style="#ffffff:blue; border-style: dotted;   font-weight: bold; font-size: 20px; background-color:#47d147;">REPOSITORIES</button>
- <div id='divResult' ></div>
-<form method="post" action="">
-   <button type="submit"  name="logout" value="Sign Out" style="#ffffff:blue; border-style: dotted;   font-weight: bold; font-size: 20px; background-color:#ff5c33;">SIGN OUT</button></div></from> </div>
-   
-</div>
-
-    <?php
-
-    if(isset($_POST['logout'])){
-?><script>
-
-  var x = document.getElementById("RandC");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-
-</script><?php
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_na = $wpdb->prefix . "gh_temp_table";
-$delete = $wpdb->query("TRUNCATE TABLE $table_na");
-
-//echo 'logout';
-
-}?>
-
-    <script>
-    	const btnRepos=document.getElementById("btnRepos")
-    	
- 
-    	const divResult=document.getElementById("divResult")
-    	btnRepos.addEventListener("click",getRepos)
-    	
-
-
-         
-    	async function getRepos()
-    	{
-     const url="http://api.github.com/search/repositories?q=stars:>1000"
-      const reponse=await fetch(url)
-      const result=await reponse.json()
-
-      result.items.forEach(i=>{
-      	const anchor=document.createElement("a")
-     anchor.href=i.html_url;
-     anchor.textContent=i.full_name; 	
-      	divResult.appendChild(anchor)
-	divResult.appendChild(document.createElement("br"))
-      })
-
-
-    	}
-    		
-    	function clear()
-    	{
-    		while(divResult.firstChild)
-    			divResult.removeChild(divResult.firstChild)
-    	}
-    </script>
-<?php
-
-
-
-//echo '<center><h1 style="color:blue;">You are Login Sucessfully! Please Refresh Once For Loading Data</h1>';
-
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_namee = $wpdb->prefix . "gh_temp_table";
-
-
-
- $check = $wpdb->get_var( "SELECT COUNT(*) FROM $table_namee where user_name= '$value1' AND user_pass='$value2'");  
-if($check>0)
-{
-echo 'Your Are Already SignIn';
-
-}
-else
-{
 $wpdb->insert( 
-  ''.$table_namee.'', 
+  ''.$table_name.'', 
   array( 
     'user_name' => $value1,  
     'user_pass' =>  $value2
@@ -997,49 +165,53 @@ $wpdb->insert(
   ) 
 );
 
-}
+?>
 
+     }
 
+    </script>
+<?php  }
 
 
 
 }
 else
 {
-echo 'You Not Login Sucessfully,Pass Or Username Incorrect';
-}
-
-    }
- if(isset($_POST['signup'])){
-
 ?>
-<script>
+<div id="sif"><h1>GitHub Repositories</h1>
+     <form method="post" action="">
+                User Name :<br><input type="text"  name="value1"><br>
+                User Pass :<br><input type="password" name="value2"><br>
 
-  var x = document.getElementById("myDIV");
+              
+   <button id='login'>login</button>  </form> </div>
+    
+
+    <script>
+         var x = document.getElementById("sif");
   if (x.style.display === "none") {
     x.style.display = "block";
+   
   } else {
     x.style.display = "none";
+ 
+     alert("Refresh Once");
   }
+   
+var x = document.getElementById("repos");
+    	const loginn=document.getElementById("login")
+    	loginn.addEventListener("click",getlogin)
+    	 function getlogin()
+    	{
 
-</script>
-<h1 align="center">Sign Up Here</h1>
-        <center>
-            <form method="post" action="">
-               Enter User Name :<br><input type="text" name="value1"><br>
-               Enter Email :<br><input type="text" name="value2"><br>
-               Enter User Password :<br><input type="password" name="value"><br>
-                <div align="center">
-                    <input type="submit" name="submit" value="Sign In" style="background:#0099ff;font-size:20px;color:white">
-                    <input type="submit" name="signup" value="Submit" style="background:#ffcc00;font-size:20px;color:black">
-                </div>
-            </form>
-<?php
+      <?php
+global $wpdb;
+require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
+$table_name = $wpdb->prefix . "gh_temp_table";
   $value1=$_POST['value1'];
         $value2=$_POST['value2'];
-    $value=$_POST['value'];
-     
-    if($value1=='') {
+ if($value1=='') {
             echo "<script>alert('Please Enter User Name')</script>";
             exit();
         }
@@ -1048,53 +220,25 @@ echo 'You Not Login Sucessfully,Pass Or Username Incorrect';
             echo "<script>alert('Please Enter Email')</script>";
             exit();
         }
-   if($value=='') {
-            echo "<script>alert('Please Enter Password')</script>";
-            exit();
-        }
-    
-
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_name = $wpdb->prefix . "github_signup";
-
-
-
- $check = $wpdb->get_var( "SELECT COUNT(*) FROM $table_name where user_name= '$value1' OR user_email='$value2' ");  
-if($check>0)
-{
-echo 'Credentials Already Exists, You Are Not Registered';
-}
-else
-{
 $wpdb->insert( 
   ''.$table_name.'', 
   array( 
-    'user_name' => $value1, 
-                'user_email' => $value2, 
-    'user_pass' =>  $value
+    'user_name' => $value1,  
+    'user_pass' =>  $value2
   ), 
   array( '%s',
-               '%s', 
                 '%s'
-     
   ) 
 );
-if($wpdb->insert_id)
-{
-echo 'You Are Registered Successfully ';
+
+?>
+ 
+     }
+
+    </script><?php
+  
 }
-else
-{
-echo 'You Are Not Registered Successfully';
-}}?>
 
-<?php
-      
-
-
-}
 
 
 
@@ -1117,82 +261,112 @@ require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 $table_namee = $wpdb->prefix . "gh_temp_table";
 
 
-
  $check = $wpdb->get_var( "SELECT COUNT(*) FROM $table_namee");  
 if($check>0)
 {
 
-?>
-<div id="RandC"><h1>GITHUB COMMITS PERVIEW PAGE</h1>
-<button id='btnCommits'style="#ffffff:blue; border-style: dotted;   font-weight: bold; font-size: 20px; background-color:#47d147;">COMMITS</button>
- <div id='divResult' ></div>
-<form method="post" action="">
-   <button type="submit"  name="logout" value="Sign Out" style="#ffffff:blue; border-style: dotted;   font-weight: bold; font-size: 20px; background-color:#ff5c33;">SIGN OUT</button></div></from> </div>
+global $wpdb;
+require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
-   
-  <script>
-    	
-    	const btnCommits=document.getElementById("btnCommits")
- 
-    	const divResult=document.getElementById("divResult")
-    	
-    	btnCommits.addEventListener("click",getCommits)
+$table_namee = $wpdb->prefix . "gh_temp_table";
 
 
+ $result = $wpdb->get_results( "SELECT * FROM $table_namee");
+foreach ( $result as $page )
+{
+  // echo $page->user_name.'<br/>';
+   //echo $page->user_pass.'<br/>';
+}
+
+   ?>
+  <div id="log">  <h1>GitHub Commits</h1>
+   <form method="post" action=""> 
+                
+               Repositorie Name :<br><input type="text" id="value3"><br>
+              Author Name :<br><input type="text" id="value4"><br>
          
-    	
-    		async function getCommits()
-    	{clear();
-     const url="http://api.github.com/search/commits?q=repo:freecodecamp/freecodecamp author-date:2019-03-01..2019-03-31"
-     const headers={
-     	"Accept" : "application/vnd.github.cloak-preview"
+ </form>
+        <button id='btnCommits'>Commits</button> 
+
+     <form method="post" action="">
+
+    <input type="submit" name="logout" value="Sign Out" > </form></div> 
+           
+    <div id='divResult' ></div>
+
+    <script>
+
+      const btnCommits=document.getElementById("btnCommits")
+      //const btnCommits=document.getElementById("btnCommits")
+      const divResult=document.getElementById("divResult")
+      btnCommits.addEventListener("click",getCommits)
+      //logout.addEventListener("click",getlogout)
+  async function getCommits()
+      {clear();
+      var u_name = "<?php echo $page->user_name; ?>";
+        var u_pass = "<?php echo $page->user_pass; ?>";
+     
+          const username=u_name; 
+ const password= u_pass; 
+            const repositorie=document.getElementById("value3").value; 
+            const author=document.getElementById("value4").value;  
+      if(username=='') {
+         alert('Please Enter User Name');
+           
+        }
+          if(password=='') {
+         alert('Please Enter Password');
+           
+        }
+          if(repositorie=='') {
+         alert('Please Enter Repositories');
+           
+        }
+          if(author=='') {
+         alert('Please Enter Author');
+           
+        }
+
+      const headers={
+      "Accept" : "application/vnd.github.cloak-preview"
      }
-      const reponse=await fetch(url,{
-        "method":"GET",
-      	"headers":headers})
+
+        const url="http://api.github.com/search/commits?q=repo:"+username+"/"+repositorie+" author-name:"+author+""
+    
+     const reponse=await fetch(url,{
+        "method": "GET",
+        "headers": headers
+      })
       const result=await reponse.json()
 
       result.items.forEach(i=>{
-      	const auhorname=document.createElement("auhorname")
-      	const img=document.createElement("img")
-      	auhorname.textContent=i.author.login;
-      	img.src=i.author.avatar_url;
-      	img.style.width="32px"
-      	img.style.height="32px"
-      	const anchor=document.createElement("a")
+        const auhorname=document.createElement("auhorname")
+        const img=document.createElement("img")
+        auhorname.textContent=i.author.login;
+        img.src=i.author.avatar_url;
+        img.style.width="32px"
+        img.style.height="32px"
+        const anchor=document.createElement("a")
      anchor.href=i.html_url;
      anchor.textContent=i.commit.message; 
-     divResult.appendChild(document.createElement("br"))	
+     divResult.appendChild(document.createElement("br"))  
      divResult.appendChild(img)
      divResult.appendChild(document.createElement("br"))
      divResult.appendChild(auhorname)
      divResult.appendChild(document.createElement("br"))
-      	divResult.appendChild(anchor)
-	divResult.appendChild(document.createElement("br"))
+        divResult.appendChild(anchor)
+  divResult.appendChild(document.createElement("br"))
       })
          
+   }
+      function clear()
+      {
+        while(divResult.firstChild)
+          divResult.removeChild(divResult.firstChild)
+      }
+    </script><?php
 
-    	}
-    	function clear()
-    	{
-    		while(divResult.firstChild)
-    			divResult.removeChild(divResult.firstChild)
-    	}
-    </script>
-
-    <?php
-
-    if(isset($_POST['logout'])){
-?><script>
-
-  var x = document.getElementById("RandC");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-
-</script><?php
+   if(isset($_POST['logout'])){
 global $wpdb;
 require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
@@ -1201,53 +375,8 @@ $delete = $wpdb->query("TRUNCATE TABLE $table_na");
 
 
 ?>
-
-<div  id="myDIV">
-<h1 align="center">Sign In Here</h1>
-        <center>
-            <form method="post" action="">
-                User Name :<br><input type="text" name="value1"><br>
-                User Pass :<br><input type="password" name="value2"><br>
-             <br><input type="hidden" name="value"><br>
-                <div align="center">
-                    <input type="submit" name="submit" value="Sign In" style="background:#0099ff;font-size:20px;color:white">
-                    <input type="submit" name="signup" value="Sign Up" style="background:#00cc99;font-size:20px;color:white">
-                </div>
-            </form>
-        </center></div>
-
-
-<?php
-}
-
-    if(isset($_POST['submit'])){
-        $value1=$_POST['value1'];
-        $value2=$_POST['value2'];
-      
-       
- if($value1=='') {
-            echo "<script>alert('Please Enter User Name')</script>";
-            exit();
-        }
-
-        if($value2=='') {
-            echo "<script>alert('Please Enter Password')</script>";
-            exit();
-        }
-
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_nam = $wpdb->prefix . "github_signup";
-
- $checks = $wpdb->get_var( "SELECT COUNT(*)  FROM $table_nam where user_name= '$value1' AND user_pass='$value2' ");  
- if($checks>0)
-{
-
-?>
 <script>
-
-  var x = document.getElementById("myDIV");
+   var x = document.getElementById("log");
   if (x.style.display === "none") {
     x.style.display = "block";
   } else {
@@ -1255,134 +384,39 @@ $table_nam = $wpdb->prefix . "github_signup";
   }
 
 </script>
-
-
-
-    <?php
-
-   /* if(isset($_POST['logout'])){
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_na = $wpdb->prefix . "gh_temp_table";
-$delete = $wpdb->query("TRUNCATE TABLE $table_na");
-
-//echo 'logout';
-
-}*/
-
-
-?>
-<div id="RandC"><h1>GitHub Commits</h1>
- <button id='btnRepos'>Repositories</button>
-    <button id='btnCommits'>Commits</button>
- <div id='divResult' ></div>
-<form method="post" action="">
-   <button type="submit"  name="logout" value="Sign Out" >SignOut</button></div></from> 
-
-   
-</div>
-
-    <?php
-
-    if(isset($_POST['logout'])){
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_na = $wpdb->prefix . "gh_temp_table";
-$delete = $wpdb->query("TRUNCATE TABLE $table_na");
-
-//echo 'logout';
-
-}?>
+<h1>GitHub Commits</h1>
+     <form method="post" action="">
+                User Name :<br><input type="text"  name="value1"><br>
+                User Pass :<br><input type="password" name="value2"><br>
+              
+   <button id='login'>login</button>   </form>
+    
 
     <script>
-    	const btnRepos=document.getElementById("btnRepos")
-    	const btnCommits=document.getElementById("btnCommits")
  
-    	const divResult=document.getElementById("divResult")
-    	btnRepos.addEventListener("click",getRepos)
-    	btnCommits.addEventListener("click",getCommits)
-
-
-         
-    	async function getRepos()
-    	{
-     const url="http://api.github.com/search/repositories?q=stars:>1000"
-      const reponse=await fetch(url)
-      const result=await reponse.json()
-
-      result.items.forEach(i=>{
-      	const anchor=document.createElement("a")
-     anchor.href=i.html_url;
-     anchor.textContent=i.full_name; 	
-      	divResult.appendChild(anchor)
-	divResult.appendChild(document.createElement("br"))
-      })
-
-
-    	}
-    		async function getCommits()
-    	{clear();
-     const url="http://api.github.com/search/commits?q=repo:freecodecamp/freecodecamp author-date:2019-03-01..2019-03-31"
-     const headers={
-     	"Accept" : "application/vnd.github.cloak-preview"
-     }
-      const reponse=await fetch(url,{
-        "method":"GET",
-      	"headers":headers})
-      const result=await reponse.json()
-
-      result.items.forEach(i=>{
-      	const auhorname=document.createElement("auhorname")
-      	const img=document.createElement("img")
-      	auhorname.textContent=i.author.login;
-      	img.src=i.author.avatar_url;
-      	img.style.width="32px"
-      	img.style.height="32px"
-      	const anchor=document.createElement("a")
-     anchor.href=i.html_url;
-     anchor.textContent=i.commit.message; 
-     divResult.appendChild(document.createElement("br"))	
-     divResult.appendChild(img)
-     divResult.appendChild(document.createElement("br"))
-     divResult.appendChild(auhorname)
-     divResult.appendChild(document.createElement("br"))
-      	divResult.appendChild(anchor)
-	divResult.appendChild(document.createElement("br"))
-      })
-         
-
-    	}
-    	function clear()
-    	{
-    		while(divResult.firstChild)
-    			divResult.removeChild(divResult.firstChild)
-    	}
-    </script>
-<?php
-
-
-
-//echo '<center><h1 style="color:blue;">You are Login Sucessfully! Please Refresh Once For Loading Data</h1>';
-
+var x = document.getElementById("repos");
+      const loginn=document.getElementById("login")
+      loginn.addEventListener("click",getlogin)
+       function getlogin()
+      {
+      <?php
 global $wpdb;
 require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
-$table_namee = $wpdb->prefix . "gh_temp_table";
+$table_name = $wpdb->prefix . "gh_temp_table";
+  $value1=$_POST['value1'];
+        $value2=$_POST['value2'];
+ if($value1=='') {
+            echo "<script>alert('Please Enter User Name')</script>";
+            exit();
+        }
 
-
-
- $check = $wpdb->get_var( "SELECT COUNT(*) FROM $table_namee where user_name= '$value1' AND user_pass='$value2'");  
-if($check>0)
-{
-echo 'Your Are Already SignIn';
-
-}
-else
-{
+   if($value2=='') {
+            echo "<script>alert('Please Enter Email')</script>";
+            exit();
+        }
 $wpdb->insert( 
-  ''.$table_namee.'', 
+  ''.$table_name.'', 
   array( 
     'user_name' => $value1,  
     'user_pass' =>  $value2
@@ -1392,49 +426,53 @@ $wpdb->insert(
   ) 
 );
 
-}
+?>
 
+     }
 
+    </script>
+<?php  }
 
 
 
 }
 else
 {
-echo 'You Not Login Sucessfully,Pass Or Username Incorrect';
-}
-
-    }
- if(isset($_POST['signup'])){
-
 ?>
-<script>
+<div id="sif"><h1>GitHub Repositories</h1>
+     <form method="post" action="">
+                User Name :<br><input type="text"  name="value1"><br>
+                User Pass :<br><input type="password" name="value2"><br>
+                
+              
+   <button id='login'>login</button>  </form> </div>
+    
 
-  var x = document.getElementById("myDIV");
+    <script>
+         var x = document.getElementById("sif");
   if (x.style.display === "none") {
     x.style.display = "block";
+   
   } else {
     x.style.display = "none";
+ 
+     alert("Refresh Once");
   }
+   
+var x = document.getElementById("repos");
+      const loginn=document.getElementById("login")
+      loginn.addEventListener("click",getlogin)
+       function getlogin()
+      {
 
-</script>
-<h1 align="center">Sign Up Here</h1>
-        <center>
-            <form method="post" action="">
-               Enter User Name :<br><input type="text" name="value1"><br>
-               Enter Email :<br><input type="text" name="value2"><br>
-               Enter User Password :<br><input type="password" name="value"><br>
-                <div align="center">
-                    <input type="submit" name="submit" value="Sign In" style="background:#0099ff;font-size:20px;color:white">
-                    <input type="submit" name="signup" value="Submit" style="background:#ffcc00;font-size:20px;color:black">
-                </div>
-            </form>
-<?php
+      <?php
+global $wpdb;
+require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
+$table_name = $wpdb->prefix . "gh_temp_table";
   $value1=$_POST['value1'];
         $value2=$_POST['value2'];
-    $value=$_POST['value'];
-     
-    if($value1=='') {
+ if($value1=='') {
             echo "<script>alert('Please Enter User Name')</script>";
             exit();
         }
@@ -1443,235 +481,8 @@ echo 'You Not Login Sucessfully,Pass Or Username Incorrect';
             echo "<script>alert('Please Enter Email')</script>";
             exit();
         }
-   if($value=='') {
-            echo "<script>alert('Please Enter Password')</script>";
-            exit();
-        }
-    
-
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_name = $wpdb->prefix . "github_signup";
-
-
-
- $check = $wpdb->get_var( "SELECT COUNT(*) FROM $table_name where user_name= '$value1' OR user_email='$value2' ");  
-if($check>0)
-{
-echo 'Credentials Already Exists, You Are Not Registered';
-}
-else
-{
 $wpdb->insert( 
   ''.$table_name.'', 
-  array( 
-    'user_name' => $value1, 
-                'user_email' => $value2, 
-    'user_pass' =>  $value
-  ), 
-  array( '%s',
-               '%s', 
-                '%s'
-     
-  ) 
-);
-if($wpdb->insert_id)
-{
-echo 'You Are Registered Successfully ';
-}
-else
-{
-echo 'You Are Not Registered Successfully';
-}}?>
-
-<?php
-      
-}?>
-
- 
-<?php
-
-
-}
-else
-{
-
-?>
-
-<div  id="myDIV">
-<h1 align="center">Sign In Here</h1>
-        <center>
-            <form method="post" action="">
-                User Name :<br><input type="text" name="value1"><br>
-                User Pass :<br><input type="password" name="value2"><br>
-             <br><input type="hidden" name="value"><br>
-                <div align="center">
-                    <input type="submit" name="submit" value="Sign In" style="background:#0099ff;font-size:20px;color:white">
-                    <input type="submit" name="signup" value="Sign Up" style="background:#00cc99;font-size:20px;color:white">
-                </div>
-            </form>
-        </center></div>
-
-
-<?php
-}
-
-    if(isset($_POST['submit'])){
-        $value1=$_POST['value1'];
-        $value2=$_POST['value2'];
-      
-       
- if($value1=='') {
-            echo "<script>alert('Please Enter User Name')</script>";
-            exit();
-        }
-
-        if($value2=='') {
-            echo "<script>alert('Please Enter Password')</script>";
-            exit();
-        }
-
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_nam = $wpdb->prefix . "github_signup";
-
- $checks = $wpdb->get_var( "SELECT COUNT(*)  FROM $table_nam where user_name= '$value1' AND user_pass='$value2' ");  
- if($checks>0)
-{
-
-?>
-<script>
-
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-
-</script>
-
-
-
-    <?php
-
-   /* if(isset($_POST['logout'])){
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_na = $wpdb->prefix . "gh_temp_table";
-$delete = $wpdb->query("TRUNCATE TABLE $table_na");
-
-//echo 'logout';
-
-}*/
-
-
-?>
-<div id="RandC"><h1>GITHUB COMMITS PERVIEW PAGE</h1>
- <button id='btnCommits'style="#ffffff:blue; border-style: dotted;   font-weight: bold; font-size: 20px; background-color:#47d147;">COMMITS</button>
- <div id='divResult' ></div>
-<form method="post" action="">
-   <button type="submit"  name="logout" value="Sign Out" style="#ffffff:blue; border-style: dotted;   font-weight: bold; font-size: 20px; background-color:#ff5c33;">SIGN OUT</button></div></from> </div>
-   
-</div>
-
-    <?php
-
-    if(isset($_POST['logout'])){
-?><script>
-
-  var x = document.getElementById("RandC");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-
-</script><?php
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_na = $wpdb->prefix . "gh_temp_table";
-$delete = $wpdb->query("TRUNCATE TABLE $table_na");
-
-//echo 'logout';
-
-}?>
-
-    <script>
-    	
-    	const btnCommits=document.getElementById("btnCommits")
- 
-    	const divResult=document.getElementById("divResult")
-    
-    	btnCommits.addEventListener("click",getCommits)
-
-
-       
-    		async function getCommits()
-    	{clear();
-     const url="http://api.github.com/search/commits?q=repo:freecodecamp/freecodecamp author-date:2019-03-01..2019-03-31"
-     const headers={
-     	"Accept" : "application/vnd.github.cloak-preview"
-     }
-      const reponse=await fetch(url,{
-        "method":"GET",
-      	"headers":headers})
-      const result=await reponse.json()
-
-      result.items.forEach(i=>{
-      	const auhorname=document.createElement("auhorname")
-      	const img=document.createElement("img")
-      	auhorname.textContent=i.author.login;
-      	img.src=i.author.avatar_url;
-      	img.style.width="32px"
-      	img.style.height="32px"
-      	const anchor=document.createElement("a")
-     anchor.href=i.html_url;
-     anchor.textContent=i.commit.message; 
-     divResult.appendChild(document.createElement("br"))	
-     divResult.appendChild(img)
-     divResult.appendChild(document.createElement("br"))
-     divResult.appendChild(auhorname)
-     divResult.appendChild(document.createElement("br"))
-      	divResult.appendChild(anchor)
-	divResult.appendChild(document.createElement("br"))
-      })
-         
-
-    	}
-    	function clear()
-    	{
-    		while(divResult.firstChild)
-    			divResult.removeChild(divResult.firstChild)
-    	}
-    </script>
-<?php
-
-
-
-//echo '<center><h1 style="color:blue;">You are Login Sucessfully! Please Refresh Once For Loading Data</h1>';
-
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_namee = $wpdb->prefix . "gh_temp_table";
-
-
-
- $check = $wpdb->get_var( "SELECT COUNT(*) FROM $table_namee where user_name= '$value1' AND user_pass='$value2'");  
-if($check>0)
-{
-echo 'Your Are Already SignIn';
-
-}
-else
-{
-$wpdb->insert( 
-  ''.$table_namee.'', 
   array( 
     'user_name' => $value1,  
     'user_pass' =>  $value2
@@ -1681,107 +492,13 @@ $wpdb->insert(
   ) 
 );
 
-}
-
-
-
-
-
-}
-else
-{
-echo 'You Not Login Sucessfully,Pass Or Username Incorrect';
-}
-
-    }
- if(isset($_POST['signup'])){
-
 ?>
-<script>
+ 
+     }
 
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-
-</script>
-<h1 align="center">Sign Up Here</h1>
-        <center>
-            <form method="post" action="">
-               Enter User Name :<br><input type="text" name="value1"><br>
-               Enter Email :<br><input type="text" name="value2"><br>
-               Enter User Password :<br><input type="password" name="value"><br>
-                <div align="center">
-                    <input type="submit" name="submit" value="Sign In" style="background:#0099ff;font-size:20px;color:white">
-                    <input type="submit" name="signup" value="Submit" style="background:#ffcc00;font-size:20px;color:black">
-                </div>
-            </form>
-<?php
-  $value1=$_POST['value1'];
-        $value2=$_POST['value2'];
-    $value=$_POST['value'];
-     
-    if($value1=='') {
-            echo "<script>alert('Please Enter User Name')</script>";
-            exit();
-        }
-
-   if($value2=='') {
-            echo "<script>alert('Please Enter Email')</script>";
-            exit();
-        }
-   if($value=='') {
-            echo "<script>alert('Please Enter Password')</script>";
-            exit();
-        }
-    
-
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_name = $wpdb->prefix . "github_signup";
-
-
-
- $check = $wpdb->get_var( "SELECT COUNT(*) FROM $table_name where user_name= '$value1' OR user_email='$value2' ");  
-if($check>0)
-{
-echo 'Credentials Already Exists, You Are Not Registered';
+    </script><?php
+  
 }
-else
-{
-$wpdb->insert( 
-  ''.$table_name.'', 
-  array( 
-    'user_name' => $value1, 
-                'user_email' => $value2, 
-    'user_pass' =>  $value
-  ), 
-  array( '%s',
-               '%s', 
-                '%s'
-     
-  ) 
-);
-if($wpdb->insert_id)
-{
-echo 'You Are Registered Successfully ';
-}
-else
-{
-echo 'You Are Not Registered Successfully';
-}}?>
-
-<?php
-      
-
-
-}
-
-
-
 
 
 
@@ -1807,7 +524,6 @@ add_settings_field('pass_label_field','Password : ','pass_label_field_cb','githu
 }
 add_action('admin_init','github_plugin_setting');
 function github_plugin_setting_section_cb(){
-echo '<p>Enter User Name and Password</p>';
 }
 
 function user_label_field_cb(){
@@ -1817,64 +533,5 @@ function pass_label_field_cb(){
 
 } 
 
-
-function session_check_function() {
-
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_namee = $wpdb->prefix . "gh_temp_table";
-
-
-
- $check = $wpdb->get_var( "SELECT COUNT(*) FROM $table_namee");  
-if($check>0)
-{
-//include 'C:\wamp64\www\github_plugin\wp-content\plugins\index.html';
-?>
-<div id="log">  <center>
-<form method="post" action="">
-   <div align="center"><input type="submit" name="logout" value="Sign Out" style="background:#ff0000;font-size:20px;color:white"></div>
-
-<?phpecho '<center><h1 style="color:blue;">You Are In Login Page Please Visit GitHub Page</h1></center>';?>
-</from> 
-
- </center></div>
-
-    <?php
-
-    if(isset($_POST['logout'])){
-global $wpdb;
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-$table_na = $wpdb->prefix . "gh_temp_table";
-$delete = $wpdb->query("TRUNCATE TABLE $table_na");
-
-//echo 'logout';
-?>
-<script>
-
-  var x = document.getElementById("log");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-
-</script>
-
-
-
-<?php
-
-}
-}
-else
-{
-
-}
-
-}
-//add_action( 'init', 'session_check_function' );
 
 ?>
