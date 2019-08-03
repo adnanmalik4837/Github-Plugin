@@ -38,15 +38,21 @@ foreach ( $result as $page )
 }
 
    ?>
+   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <div id="log">  <h1>GitHub Repositories</h1>
   <!--  <form method="post" action="">
                 User Name :<br><input type="text" id="value1"><br>
                 User Pass :<br><input type="password" id="value2"><br>
             
         </form> -->
-    <button id='btnRepos'>Repos</button>
+
+    <button id='btnRepos' class="btn btn-success">Repos</button>
      <form method="post" action="">
-    <input type="submit" name="logout" value="Sign Out" > </form></div> 
+    <input type="submit" name="logout" value="Sign Out" class="btn btn-danger" > </form></div> 
            
     <div id='divResult' ></div>
 
@@ -123,13 +129,40 @@ $delete = $wpdb->query("TRUNCATE TABLE $table_na");
   }
 
 </script>
-<h1>GitHub Repositories</h1>
-     <form method="post" action="">
-                User Name :<br><input type="text"  name="value1"><br>
-                User Pass :<br><input type="password" name="value2"><br>
-              
-   <button id='login'>login</button>   </form>
-    
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<div class="col-lg-5">
+  
+  <div class="panel panel-default">
+    <div class="panel panel-success">
+    <div class="panel-heading"><center><h2>GITHUB REPOSITORIES</h2></center></div></div>
+<div class="panel-body">
+
+     <form method="post" action="" class="form-horizontal" >
+      <div class="row">
+
+     <div class="col-xs-12">
+     <div class="input-group"> 
+  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+               <input type="text"  name="value1" class="form-control" size="30px" placeholder="User Name">
+
+             </div><br></div></div>
+                   
+                      <div class="row">
+                   <div class="col-xs-12">  
+                   <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+               <input type="password" class="form-control"  placeholder="Password" name="value2"></div></div></div><br>
+                
+<center><button id='login' class="btn btn-success">LOGIN</button></center> </form>
+ </div>
+  </div>
+    </div>
 
     <script>
  
@@ -178,13 +211,46 @@ $wpdb->insert(
 else
 {
 ?>
-<div id="sif"><h1>GitHub Repositories</h1>
-     <form method="post" action="">
-                User Name :<br><input type="text"  name="value1"><br>
-                User Pass :<br><input type="password" name="value2"><br>
+<div id="sif">
 
-              
-   <button id='login'>login</button>  </form> </div>
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<div class="col-lg-5">
+  
+  <div class="panel panel-default">
+    <div class="panel panel-success">
+    <div class="panel-heading"><center><h2>GITHUB REPOSITORIES</h2></center></div></div>
+<div class="panel-body">
+
+     <form method="post" action="" class="form-horizontal" >
+      <div class="row">
+
+     <div class="col-xs-12">
+     <div class="input-group"> 
+  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+               <input type="text"  name="value1" class="form-control" size="30px" placeholder="User Name">
+
+             </div><br></div></div>
+                   
+                      <div class="row">
+                   <div class="col-xs-12">  
+                   <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+               <input type="password" class="form-control"  placeholder="Password" name="value2"></div></div></div><br>
+                
+<center><button id='login' class="btn btn-success">LOGIN</button></center> </form>
+ </div>
+  </div>
+    </div>
+
+
+ </div>
     
 
     <script>
@@ -384,13 +450,48 @@ $delete = $wpdb->query("TRUNCATE TABLE $table_na");
   }
 
 </script>
-<h1>GitHub Commits</h1>
+<!-- <h1>GitHub Commits</h1>
      <form method="post" action="">
                 User Name :<br><input type="text"  name="value1"><br>
                 User Pass :<br><input type="password" name="value2"><br>
               
    <button id='login'>login</button>   </form>
     
+ -->
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<div class="col-lg-5">
+  
+  <div class="panel panel-default">
+    <div class="panel panel-success">
+    <div class="panel-heading"><center><h2>GITHUB COMMITS</h2></center></div></div>
+<div class="panel-body">
+
+     <form method="post" action="" class="form-horizontal" >
+      <div class="row">
+
+     <div class="col-xs-12">
+     <div class="input-group"> 
+  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+               <input type="text"  name="value1" class="form-control" size="30px" placeholder="User Name">
+
+             </div><br></div></div>
+                   
+                      <div class="row">
+                   <div class="col-xs-12">  
+                   <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+               <input type="password" class="form-control"  placeholder="Password" name="value2"></div></div></div><br>
+                
+<center><button id='login' class="btn btn-success">LOGIN</button></center> </form>
+ </div>
+  </div>
+    </div>
 
     <script>
  
@@ -445,7 +546,7 @@ else
                 User Pass :<br><input type="password" name="value2"><br>
                 
               
-   <button id='login'>login</button>  </form> </div>
+   <button id='login'>login</button></form> </div>
     
 
     <script>
